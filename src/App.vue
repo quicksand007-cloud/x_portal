@@ -2,10 +2,12 @@
   <div id="app">
     <el-container>
       <el-aside>
-        <vertical-menu></vertical-menu>
+        <vertical-menu ref="verticalMenu"></vertical-menu>
       </el-aside>
       <el-container>
-        <el-header>Header</el-header>
+        <el-header>
+          <horizontal-menu ref="horizontalMenu"></horizontal-menu>
+        </el-header>
         <el-main>
           <router-view></router-view>
         </el-main>
@@ -16,12 +18,14 @@
 </template>
 
 <script>
-  import VerticalMenu from '@/components/VerticalMenu'
+  import VerticalMenu from '@/components/VerticalMenu';
+  import HorizontalMenu from '@/components/HorizontalMenu';
 
   export default {
     name: 'App',
     components:{
-      VerticalMenu:VerticalMenu
+      VerticalMenu:VerticalMenu,
+      HorizontalMenu:HorizontalMenu
     }
     
   }

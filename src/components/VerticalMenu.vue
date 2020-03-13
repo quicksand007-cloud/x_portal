@@ -1,7 +1,7 @@
 <<template>
     <div id="verticalMenu">
         <el-menu
-            default-active="2"
+            default-active="BasicLayout"
             mode="vertical"
             @open="handleOpen"
             @close="handleClose"
@@ -10,7 +10,8 @@
                 <template slot="title">
                 <span v-text="item.name"></span>
                 </template>
-                <el-menu-item v-for="sub in item.sub" :key="sub.componentName":index="sub.componentName" v-text="sub.name">
+                <el-menu-item v-for="sub in item.children" :key="sub.componentName"
+                    :index="sub.componentName" v-text="sub.name" @click="openHorizontal(sub)">
                 </el-menu-item>               
             </el-submenu>
         </el-menu>
@@ -18,12 +19,17 @@
 </template>
 
 <script>
-import menu from '@/config/menu-config'
+import menu from '@/config/menu-config';
+import HorizontalMenu from '@/components/HorizontalMenu'
 
 export default {
+    components:{
+      HorizontalMenu:HorizontalMenu
+    },
     data:function(){
         return {
-            menu:menu
+            menu:menu,
+            horizontalMenu:[]
         }
     },
     methods: {
@@ -32,6 +38,10 @@ export default {
         },
         handleClose(key, keyPath) {
           console.log(key, keyPath);
+        },
+        openHorizontal(sub){
+           var horizontalMenu = window.vm.$children[0].$refs["horizontalMenu"];
+           horizontalMenu.hmenu = sub.children;
         }
     }
 }
